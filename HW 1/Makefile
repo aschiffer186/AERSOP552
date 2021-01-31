@@ -1,6 +1,6 @@
 CXXFLAGS = -Wall -Werror -pedantic
 DEBUGFLAGS = -g -DDEBUG
-STANDARD = -std=c++2a
+STANDARD = -std=c++14
 
 CLEANFILES = p1.exe p2.exe p3.exe p3_debug.exe
 CC = g++
