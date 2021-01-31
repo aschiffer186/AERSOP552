@@ -24,3 +24,4 @@ clean:
 		del ${CLEANFILES}
 	else
 		rm -rf ${CLEANFILES}
+	endif
