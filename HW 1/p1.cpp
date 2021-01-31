@@ -45,8 +45,31 @@ void fly(double latA, double longA, double latB, double longB)
     std::cout << std::setprecision(2) << std::fixed << "Fly heading " << theta*RAD_TO_DEG << " degrees for " << d << " nautical miles." << std::endl; 
 }
 
+struct temp
+{
+    public:
+        temp()
+        {
+            std::cout << "C'tor called" << std::endl;
+            i = new int(5);
+        }
+
+        ~temp()
+        {
+            std::cout << "D'tor called" << std::endl;
+            delete i;
+        }
+    private:
+        int* i;
+};
+
 int main(int argc, char** argv)
 {
     fly(42.278046, -83.738220, 42.3601, -71.0589);
+    temp* t = new temp;
+    free(t);
+
+    temp* t2 = static_cast<temp*>(malloc(sizeof(temp)));
+    delete t2;
     return 0;
 }
