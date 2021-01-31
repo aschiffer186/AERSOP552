@@ -48,7 +48,5 @@ void fly(double latA, double longA, double latB, double longB)
 int main(int argc, char** argv)
 {
     fly(42.278046, -83.738220, 42.3601, -71.0589);
-    int* ptr = new int;
-    free(ptr);
     return 0;
 }

@@ -20,4 +20,7 @@ p3_debug: p3.cpp
 .phone: clean
 
 clean:
-	del ${CLEANFILES}
+	ifeq ($(OS),Windows_NT)
+		del ${CLEANFILES}
+	else
+		rm -rf ${CLEANFILES}
