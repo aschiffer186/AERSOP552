@@ -66,10 +66,5 @@ struct temp
 int main(int argc, char** argv)
 {
     fly(42.278046, -83.738220, 42.3601, -71.0589);
-    temp* t = new temp;
-    free(t);
-
-    temp* t2 = static_cast<temp*>(malloc(sizeof(temp)));
-    delete t2;
     return 0;
 }

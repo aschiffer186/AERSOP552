@@ -17,6 +17,9 @@ p3: p3.cpp
 p3_debug: p3.cpp
 	${CC} ${CXXFLAGS} ${STANDARD} ${DEBUGFLAGS} p3.cpp -o p3_debug.exe
 
+memory: memory.cpp
+	${CC} ${CXXFLAGS} ${STANDARD} ${DEBUGFLAGS} memory.cpp -o memory.exe
+
 .phone: clean
 
 clean:
