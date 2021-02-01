@@ -50,5 +50,16 @@ int main(int argc, char** argv)
     //Delete arr2
     delete[] arr2;
 
+    //You can dynamically allocate both dimensions at onece, but the type you get is not 
+    //obvious. The auto keyword can deduce the type for you.
+    auto arr3 = new int[3][4];
+
+    for(int i = 0; i < 3; ++i)
+    {
+        delete[] arr3[i];
+    }
+
+    delete[] arr3;
+
     return 0;
 }
