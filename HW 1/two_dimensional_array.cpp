@@ -52,12 +52,9 @@ int main(int argc, char** argv)
 
     //You can dynamically allocate both dimensions at onece, but the type you get is not 
     //obvious. The auto keyword can deduce the type for you.
+    //
+    //On dimension is statically allocated; the other is dynamically allocated.
     auto arr3 = new int[3][4];
-
-    for(int i = 0; i < 3; ++i)
-    {
-        delete[] arr3[i];
-    }
 
     delete[] arr3;
 
