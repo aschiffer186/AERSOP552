@@ -44,7 +44,7 @@ int main(int argc, char** argv)
     //each dynamically allocated array in arr2 as well, or you will create a memory leak. 
     for(int i = 0; i < 5; ++i)
     {
-        delete[] arr2[i]; //Since each element is an array, you must call delete[]
+        delete arr2[i]; //Since each element is an array, you must call delete[]
     }
 
     //Delete arr2
