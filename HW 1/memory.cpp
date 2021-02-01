@@ -1,20 +1,32 @@
 #include <iostream>
 #include <cstdlib>
 
+//Dummy object to help explain memory concepts
 struct foo
 {
-    foo(int i)
+    //Initializes _M_ptr with the value i.
+    //Note that here _M_ptr is allocated on the heap!
+    //
+    //You can ignore the "explicit" keyword for this example. 
+    explicit foo(int i)
     {
         std::cout << "Constructor called!" << std::endl;
         _M_ptr = new int(i);
     }
 
+    //Destroys foo and deletes _M_ptr
     ~foo()
     {
         std::cout << "Destructor called!" << std::endl;
         delete _M_ptr;
     }
 
+    //Returns the value of the integer pointed to by 
+    //_M_ptr. 
+    //
+    //Notice that we need to deference _M_ptr!
+    //
+    //You can ignore the "const" keyword here.
     int get_value() const 
     {
         return *_M_ptr;
@@ -67,9 +79,16 @@ int main(int argc, char** argv)
     //This allocates memory for an object of type foo, but it doesn't initialize it or 
     //call its constructor. This means its stored pointer won't be initialized and will 
     //instead point to a junk address (which could hold anything)!
+    //
+    //Additionally, you must explicitly cast the pointer malloc returns from void* to 
+    //foo*. You must also manually check to see if the allocation succeseded by checking 
+    //if(ptr == NULL)
     ptr = static_cast<foo*>(malloc(sizeof(foo)));
     //Remember, the pointer stored in the object pointed to by ptr could point to anything!
     //Calling get_value() attempts to dereference it; this is undefined behavior and is bad.
+    //
+    //If the allocation failed, ptr is NULL and then you are trying to dereference a null 
+    //ptr, which is also bad!
     std::cout << ptr->get_value() << std::endl;
     //This calls the destructor of the object pointed to by ptr but that destructor is now 
     //trying to call delete on an unitialized ptr! This is bad and could cause an error 
@@ -82,6 +101,22 @@ int main(int argc, char** argv)
 
     //In general, AVOID malloc and free in C++ unless you have a very good reason for doing so.
     //malloc and free are used in C, new and delete are used in C++ (the language this HW uses)
+
+    //Allocate an array of foo objects. This call allocates space in memory for 3 for 3 foo objects. 
+    //Since this is an array, the objects are stored contigously in memory. It then stores a pointer 
+    //to the FIRST object in ptr.  
+    ptr = new foo[]{foo(1), foo(2), foo(3)};
+    //Since we allocated an array, you must use delete[] to allocate it. NEVER use delete to allocate 
+    //array, you MUST ALWAYS use delete[] to avoid a memory leak. 
+    delete[] ptr;
+
+    //ptr no longer points to an array!!
+    ptr = new foo(5);
+    //delete[] can only be used on arrays. Using it on a non-array is undefined behaior and could trigger 
+    //an error. 
+    delete[] ptr;
+
+    //Important point: new T() = use delete to clean up memory, new T[] = use delete[] to clean up memory.
 
     return 0;
 }

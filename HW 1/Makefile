@@ -20,6 +20,9 @@ p3_debug: p3.cpp
 memory: memory.cpp
 	${CC} ${CXXFLAGS} ${STANDARD} ${DEBUGFLAGS} memory.cpp -o memory.exe
 
+array: two_dimensional_array.cpp
+	${CC} ${STANDARD} ${DEBUGFLAGS} two_dimensional_array.cpp -o array.exe
+
 .phone: clean
 
 clean:
