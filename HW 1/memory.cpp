@@ -105,7 +105,7 @@ int main(int argc, char** argv)
     //Allocate an array of foo objects. This call allocates space in memory for 3 for 3 foo objects. 
     //Since this is an array, the objects are stored contigously in memory. It then stores a pointer 
     //to the FIRST object in ptr.  
-    ptr = new foo[]{foo(1), foo(2), foo(3)};
+    ptr = new foo[3]{foo(1), foo(2), foo(3)};
     //Since we allocated an array, you must use delete[] to allocate it. NEVER use delete to allocate 
     //array, you MUST ALWAYS use delete[] to avoid a memory leak. 
     delete[] ptr;
