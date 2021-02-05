@@ -42,29 +42,12 @@ void fly(double latA, double longA, double latB, double longB)
     double d = 2*R*atan2(sqrt(a), sqrt(1-a));
     double theta = atan2(sin(longB_rad - longA_rad)*cos(latB_rad), 
                          cos(latA_rad)*sin(latB_rad)-sin(latA_rad)*cos(latB_rad)*cos(longB_rad - longA_rad));
+    if (theta < 0) theta += 2*PI;
     std::cout << std::setprecision(2) << std::fixed << "Fly heading " << theta*RAD_TO_DEG << " degrees for " << d << " nautical miles." << std::endl; 
 }
 
-struct temp
-{
-    public:
-        temp()
-        {
-            std::cout << "C'tor called" << std::endl;
-            i = new int(5);
-        }
-
-        ~temp()
-        {
-            std::cout << "D'tor called" << std::endl;
-            delete i;
-        }
-    private:
-        int* i;
-};
-
 int main(int argc, char** argv)
 {
-    fly(42.278046, -83.738220, 42.3601, -71.0589);
+    fly(std::atof(argv[1]), std::atof(argv[2]), std::atof(argv[3]), std::atof(argv[4]));
     return 0;
 }
