@@ -17,6 +17,9 @@ p3: p3.cpp
 p3_debug: p3.cpp
 	${CC} ${CXXFLAGS} ${STANDARD} ${DEBUGFLAGS} p3.cpp -o p3_debug.exe
 
+p4: p4.cpp 
+	${CC} ${CXXFLAGS} ${STANDARD} p4.cpp -o p4.exe
+
 memory: memory.cpp
 	${CC} ${CXXFLAGS} ${STANDARD} ${DEBUGFLAGS} memory.cpp -o memory.exe
 

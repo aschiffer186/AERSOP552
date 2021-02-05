@@ -13,6 +13,8 @@ using namespace std;
 //is called again with n = -1. Since n != 1, the else clause is triggered.
 //so hanoi_int is called again with n = -2. And so on and so forth.
 //
+//I don't know if they will be testing with n <= 0, but it's something to keep in mind. 
+//
 //On Piazza he said not to use string in p3, my guess is that applies here too,
 //try replacing the string with char.
 void hanoi_int(int n, string source, string dest, string aux) {
@@ -32,6 +34,7 @@ void hanoi(int n){
 }
 
 int main(){
+    //Make sure you should additional test cases.
     hanoi(3);
     return 0;
 }

@@ -4,6 +4,17 @@
 
 using namespace std;
 
+//No memory errors which is good.
+//Functionality looks good.
+//
+//Stylistically, the life function is a little chaotic. 
+//Additionally, copying the board leads to a lot of code 
+//duplication. Code duplication is a hint to make a function. 
+//
+//These test cases work, but for future projects, you should 
+//always strive to come up with the simplest possible edge cases 
+//so you can manually step through them.
+
 int countNeighbors(char** lines, int i, int j, int n, int m) {
    int neighbors = 0;
    // Top left corner

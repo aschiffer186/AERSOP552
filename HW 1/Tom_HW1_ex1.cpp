@@ -3,7 +3,19 @@ using namespace std;
 
 #include<cmath>
 
-//This looks good
+//Whether or not this code compiles depends on the exact command line flags 
+//passed to the compiler. 
+//
+//It compiles with g++ ex1.cpp -o ex1.exe (which is what he showed in class)
+//but it doesn't compile (on my machine) with the stricter command of 
+//g++ -Wall -Werror ex1.cpp -o ex1.exe
+//
+//The problem is M_PI; it's not technically part of the C++ standard I think.
+//
+//I'm not sure what the command they will use to compile it.
+//
+//Functionally, though, it seems right.
+
 void fly(double latA, double longA, double latB, double longB) {
 
     if (latA<-90 || latA>90) {
@@ -29,6 +41,9 @@ void fly(double latA, double longA, double latB, double longB) {
         } else if (theta>=360) {
             theta-=360; 
         }
+        //To display things to two decimal places (like in the assignment description) try using std::fixed and std::setprecision(2). 
+        //A quick google search should show how to use them. If you use those, I believe you will also need to get rid of the 
+        //to_string(...) function calls.  
         cout<<"Fly heading "+to_string(theta)+" degrees for "+to_string(d)+" nautical miles"<<endl;
     }
 }
@@ -48,6 +63,9 @@ int main() {
     cout<<"Enter your end longitude: ";
     cin>>longB;*/
 
+    //I believe you will be graded explicitly on test cases.
+    //Make sure you include other test cases including test cases 
+    //testing if the fly function will reject incorrect input.
     latA=42.279594;
     longA=-83.732124;
     latB=42.361145;
