@@ -14,6 +14,9 @@ p2: p2.cpp
 p3: p3.cpp
 	${CC} ${CXXFLAGS} ${STANDARD} p3.cpp -o p3.exe
 
+p3_better: p3_better.cpp 
+	${CC} ${CXXFLAGS} ${STANDARD} -g p3_better.cpp -o p3_better.exe
+
 p3_debug: p3.cpp
 	${CC} ${CXXFLAGS} ${STANDARD} ${DEBUGFLAGS} p3.cpp -o p3_debug.exe
 
