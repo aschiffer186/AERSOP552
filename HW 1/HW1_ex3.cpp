@@ -4,10 +4,10 @@ using namespace std;
 #include<cmath>
 #include<cstring>
 
-void life() {
-    ifstream file("C:\\Users\\aschi\\Dropbox\\AERO 552\\HW 1\\life.dat"); 
+void life(const char* filename) {
+    ifstream file(filename); //channged
     char temp[10000];
-    //file.getline(temp, 10000); //<--get rid of this line
+    //file.getline(temp, 10000); //<--get rid of this line //changed
     int num_rows = 0;
     int prev_row = 0;
     int curr_row = 0;
@@ -26,7 +26,7 @@ void life() {
         num_cols=len;
 
         for (int l = 0; l < num_cols; ++l) {
-                if (temp[l]!=' ' && temp[l]!='O') { //should be temp[l] != ' ' && temp[l] != 'O'
+                if (temp[l]!=' ' && temp[l]!='O') { //should be temp[l] != ' ' && temp[l] != 'O' //changed
                     cout<<"Value error"<<endl;
                     return ;
                 }
@@ -39,7 +39,7 @@ void life() {
     file.close();
     file.clear();
     file.seekg(0, file.beg);
-    file.open("C:\\Users\\aschi\\Dropbox\\AERO 552\\HW 1\\life.dat"); //filename instead of "life.dat"
+    file.open(filename); //filename instead of "life.dat" //changed
 
     //Copy the data from the file into an array
     char** board = new char*[num_rows];
@@ -117,7 +117,7 @@ void life() {
     delete[] board;
 }
 
-int main() {
-    life();
+int main(int argc, char** argv) {
+    life(argv[1]);
     return 0;
     }
