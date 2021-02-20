@@ -102,6 +102,7 @@ MAKE_TEST(insert_2, Tests inserting into a non-empty tree.)
     t.insert(1);
     t.insert(3);
     int size = t.size();
+    arr = t.toarray();
     if(size != 3)
     {
         FAILURE_ARGS(size, 3, "size")
