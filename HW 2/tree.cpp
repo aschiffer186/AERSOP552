@@ -12,29 +12,12 @@
         _M_root = copy_nodes(other._M_root);
     }
 
-    Tree::Tree(Tree&& other)
-    : _M_root(other._M_root)
-    {
-        other._M_root = nullptr;
-    }
-
     Tree& Tree::operator=(const Tree& other)
     {
         if(this != &other)
         {
             delete_nodes(_M_root);
             _M_root = copy_nodes(other._M_root);
-        }
-        return *this;
-    }
-
-    Tree& Tree::operator=(Tree&& other)
-    {
-        if(this != &other)
-        {
-            delete_nodes(_M_root);
-            _M_root = other._M_root;
-            other._M_root = nullptr;
         }
         return *this;
     }
@@ -82,7 +65,8 @@
         if (curr_size == 0)
             return nullptr;
         int* arr = new int[curr_size];
-        toarray_impl(_M_root, arr, 0);
+        int index = 0;
+        toarray_impl(_M_root, arr, index);
         return arr;
     }
 
@@ -146,16 +130,6 @@
     }
 
     void Tree::toarray_impl(Tree::tree* n, int* arr, int& index) const
-    {
-        if(n)
-        {
-            toarray_impl(n->_M_left, arr, index);
-            arr[index++] = n->_M_datum;
-            toarray_impl(n->_M_right, arr, index);
-        }
-    }
-
-    void Tree::toarray_impl(Tree::tree* n, int* arr, int&& index) const
     {
         if(n)
         {

@@ -18,11 +18,7 @@ class Tree
 
         Tree(const Tree& other);
 
-        Tree(Tree&& other);
-
         Tree& operator=(const Tree& other);
-
-        Tree& operator=(Tree&& other);
 
         ~Tree();
 
@@ -43,8 +39,6 @@ class Tree
     private:
 
         void toarray_impl(tree* n, int* arr, int& index) const;
-
-        void toarray_impl(tree* n, int* arr, int&& index) const;
 
         bool member_impl(tree* n, int i);
 
