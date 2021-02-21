@@ -79,6 +79,7 @@
         {
             tree_union.insert(b_arr[i]);
         }
+        delete[] b_arr;
         return tree_union;
     }
 
