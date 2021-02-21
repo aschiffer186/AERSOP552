@@ -75,9 +75,9 @@
         Tree tree_union(a);
         int* b_arr = b.toarray();
         int size = b.size();
-        for(int i = 0; i <size; ++i)
+        for(int i = 0; i < size; ++i)
         {
-                tree_union.insert(b_arr[i]);
+            tree_union.insert(b_arr[i]);
         }
         return tree_union;
     }
@@ -104,12 +104,12 @@
         else 
         {
             short_begin = a_arr;
-            short_end = short_begin + b_size;
+            short_end = short_begin + a_size;
             long_begin = b_arr;
-            long_end = long_begin + a_size;
+            long_end = long_begin + b_size;
         }
 
-        for(; long_begin != long_end; ++long_begin)
+        for(; long_begin != long_end;)
         {
             if(short_begin == short_end)
                 break;
