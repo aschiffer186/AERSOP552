@@ -61,4 +61,8 @@ class Tree
         tree* _M_root;
 };
 
+ Tree treeUnion(Tree a, Tree b);
+
+ Tree intersection(Tree a, Tree b);
+
 #endif

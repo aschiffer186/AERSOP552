@@ -70,7 +70,7 @@
         return arr;
     }
 
-    Tree Tree::treeUnion(Tree a, Tree b)
+    Tree treeUnion(Tree a, Tree b)
     {
         Tree tree_union(a);
         int* b_arr = b.toarray();
@@ -83,7 +83,7 @@
         return tree_union;
     }
 
-    Tree Tree::intersection(Tree a, Tree b)
+    Tree intersection(Tree a, Tree b)
     {
         Tree tree_intersection;
         int* short_begin,*short_end;

@@ -32,11 +32,11 @@ std::cout << "Unexpected Exception. Test "<< test_name << " Failed!" << std::end
 //Print a success message, delete any dynamically allocated memory, and exit
 #define SUCCESS() std::cout << "Test " << test_name << " Passed!" << std::endl;\
                   return;
-//Compares the contents of the tree (as obtained by Tree::toarray()) with the specified array.
+//Compares the contents of the tree (as obtained by toarray()) with the specified array.
 //Prints an error if they do not match. Cleans up any allocated memory
 //@param o an array containing the expected contents of the tree
-#define CONTENTS_TEST(o) int* arr = t.toarray();\
-int tree_size = t.size();\
+#define CONTENTS_TEST(tree, o) int* arr = tree.toarray();\
+int tree_size = tree.size();\
 for(int i = 0; i < tree_size; ++i)\
 {\
     if(o[i] != arr[i]) {\
@@ -92,7 +92,7 @@ MAKE_TEST(insert_1, Tests inserting into an empty tree.)
     {
         FAILURE_ARGS(size, 1, "size")
     } 
-    CONTENTS_TEST(expected)
+    CONTENTS_TEST(t, expected)
     SUCCESS()
 END_TEST()
 
@@ -107,7 +107,7 @@ MAKE_TEST(insert_2, Tests inserting into a non-empty tree.)
     {
         FAILURE_ARGS(size, 3, "size")
     }
-    CONTENTS_TEST(expected)
+    CONTENTS_TEST(t, expected)
     SUCCESS()
 END_TEST()
 
@@ -124,7 +124,7 @@ MAKE_TEST(insert_3, Test inserting into a non-empty tree.)
     {
         FAILURE_ARGS(size, 5, "size")
     }
-    CONTENTS_TEST(expected)
+    CONTENTS_TEST(t, expected)
     SUCCESS()
 END_TEST()
 
@@ -185,7 +185,7 @@ MAKE_TEST(erase_3, Tests erasing the root with a left subtree.)
     {
         FAILURE_ARGS(size, 1, "size")
     }
-    CONTENTS_TEST(expected)
+    CONTENTS_TEST(t, expected)
     SUCCESS()
 END_TEST()
 
@@ -200,7 +200,7 @@ MAKE_TEST(erase_4, Tests erasing the root with a right subtree)
     {
         FAILURE_ARGS(size, 1, "size")
     }
-    CONTENTS_TEST(expected)
+    CONTENTS_TEST(t, expected)
     SUCCESS()  
 END_TEST()
 
@@ -216,7 +216,7 @@ MAKE_TEST(erase_5, Tests erasing the root with two subtrees.)
     {
         FAILURE_ARGS(size, 2, "size")
     }
-    CONTENTS_TEST(expected)
+    CONTENTS_TEST(t, expected)
     SUCCESS()
 END_TEST()
 
@@ -232,7 +232,7 @@ MAKE_TEST(erase_6, Tests trying to erase an element not in the tree.)
     {
         FAILURE_ARGS(size, 3, "size")
     }
-    CONTENTS_TEST(expected)
+    CONTENTS_TEST(t, expected)
     SUCCESS()
 END_TEST()
 
@@ -252,7 +252,7 @@ MAKE_TEST(erase_7, Tests trying to erase non-root leaf element)
     {
         FAILURE_ARGS(size, 6, "size")
     }
-    CONTENTS_TEST(expected)
+    CONTENTS_TEST(t, expected)
     SUCCESS()
 END_TEST()
 
@@ -271,7 +271,7 @@ MAKE_TEST(erase_8, Test erasing non root element with only right child)
     {
         FAILURE_ARGS(size, 5, "size")
     }
-    CONTENTS_TEST(expected2)
+    CONTENTS_TEST(t, expected2)
     SUCCESS()
 END_TEST()
 
@@ -290,7 +290,7 @@ MAKE_TEST(erase_9, Test erasing non-root element with with two children)
     {
         FAILURE_ARGS(size, 5, "size")
     }
-    CONTENTS_TEST(expected2)
+    CONTENTS_TEST(t, expected2)
     SUCCESS()
 END_TEST()
 
@@ -309,7 +309,7 @@ MAKE_TEST(erase_10, Test erasing non-root element with only left child)
     {
         FAILURE_ARGS(size, 5, "size")
     }
-    CONTENTS_TEST(expected2)
+    CONTENTS_TEST(t, expected2)
     SUCCESS()
 END_TEST()
 
@@ -385,7 +385,7 @@ MAKE_TEST(copy_ctor_2, Test copy constructor with non-empty tree)
         FAILURE_ARGS(size, expected_size, "size")
     }
     int expected[] = {1, 2, 3, 4, 6, 7};
-    CONTENTS_TEST(expected)
+    CONTENTS_TEST(t, expected)
     //Test for deep copy 
     t2.insert(9);
     size = t.size();
@@ -396,10 +396,94 @@ MAKE_TEST(copy_ctor_2, Test copy constructor with non-empty tree)
     SUCCESS()
 END_TEST()
 
+MAKE_TEST(assignment_operator_1, Test assigning non-empty tree into empty tree)
+    Tree t1;
+    t1.insert(1);
+    t1.insert(2);
+    Tree t2 = t1;
+    int size = t2.size();
+    int expected_size = t1.size();
+    if(size != expected_size)
+    {
+        FAILURE_ARGS(size, expected_size, "size")
+    }
+    int expected[] = {1, 2};
+    CONTENTS_TEST(t2, expected)
+    //Test for deep copy
+    t2.insert(3);
+    size = t1.size();
+    if(size != expected_size)
+    {
+        FAILURE_ARGS(size, expected_size, "size")
+    }
+    SUCCESS()
+END_TEST()
+
+MAKE_TEST(assignment_operator_2, Test assigning non-empty tree into non-empty tree)
+    Tree t1;
+    t1.insert(1);
+    t1.insert(2);
+    Tree t2;
+    t2.insert(3);
+    t2.insert(4);
+    t2.insert(5);
+    t2 = t1;
+    int size = t2.size();
+    int expected_size = t1.size();
+    if(size != expected_size)
+    {
+        FAILURE_ARGS(size, expected_size, "size")
+    }
+    int expected[] = {1, 2};
+    CONTENTS_TEST(t2, expected)
+    //Test for deep copy
+    t2.insert(3);
+    size = t1.size();
+    if(size != expected_size)
+    {
+        FAILURE_ARGS(size, expected_size, "size")
+    }
+    SUCCESS()
+END_TEST()
+
+MAKE_TEST(assignment_operator_3, Test assigning empty tree into non-empty tree)
+    Tree t1;
+    Tree t2;
+    t2.insert(1);
+    t2.insert(-6);
+    t2 = t1;
+    int size = t2.size();
+    int expected_size = t1.size();
+    if(size != expected_size)
+    {
+        FAILURE_ARGS(size, expected_size, "size")
+    }
+    int* arr = t2.toarray();
+    if(arr)
+    {
+        FAILURE_ARGS("not nullptr", "nullptr", "t2.toarray()")
+    }
+    SUCCESS()
+END_TEST()
+
+MAKE_TEST(assignment_operator_4, Test self-assignment)
+    Tree t;
+    t.insert(1);
+    t = t;
+    int size = t.size();
+    if(size != 1)
+    {
+        FAILURE_ARGS(size, 1, "size")
+    }
+    int expected[] = {1};
+    CONTENTS_TEST(t, expected)
+    SUCCESS()
+END_TEST()
+
 MAKE_TEST(tree_union_1, Test treeUnion with two empty trees)
     Tree a;
     Tree b;
-    Tree t = Tree::treeUnion(a, b);
+    Tree t = treeUnion(a, b);
     int size = t.size();
     if(size != 0)
     {
@@ -413,14 +497,14 @@ MAKE_TEST(tree_union_2, Test treeUnion with one empty tree)
     a.insert(1);
     a.insert(2);
     Tree b;
-    Tree t = Tree::treeUnion(a, b);
+    Tree t = treeUnion(a, b);
     int size = t.size();
     if(size != 2)
     {
         FAILURE_ARGS(size, 2, "size")
     }
     int expected[] = {1, 2};
-    CONTENTS_TEST(expected)
+    CONTENTS_TEST(t, expected)
     SUCCESS()
 END_TEST()
 
@@ -431,21 +515,21 @@ MAKE_TEST(tree_union_3, Test treeUnion with two non-empty trees)
     Tree b;
     b.insert(2);
     b.insert(3);
-    Tree t = Tree::treeUnion(a, b);
+    Tree t = treeUnion(a, b);
     int size = t.size();
     if(size != 3)
     {
         FAILURE_ARGS(size, 3, "size")
     }
     int expected[] = {1, 2, 3};
-    CONTENTS_TEST(expected)
+    CONTENTS_TEST(t, expected)
     SUCCESS()
 END_TEST()
 
 MAKE_TEST(tree_intersection_1, Test interesection with two empty trees)
     Tree a;
     Tree b;
-    Tree t = Tree::intersection(a, b);
+    Tree t = intersection(a, b);
     int size = t.size();
     if(size != 0)
     {
@@ -459,7 +543,7 @@ MAKE_TEST(tree_intersection_2, Test intersection with one empty tree)
     a.insert(1);
     a.insert(2);
     Tree b;
-    Tree t = Tree::intersection(a, b);
+    Tree t = intersection(a, b);
     int size = t.size();
     if(size != 0)
     {
@@ -475,14 +559,14 @@ MAKE_TEST(tree_intersection_3, Test intersection with two non-empty trees of equ
     Tree b;
     b.insert(2);
     b.insert(3);
-    Tree t = Tree::intersection(a, b);
+    Tree t = intersection(a, b);
     int size = t.size();
     if(size != 1)
     {
         FAILURE_ARGS(size, 1, "size")
     }
     int expected[] = {2};
-    CONTENTS_TEST(expected)
+    CONTENTS_TEST(t, expected)
     SUCCESS()
 END_TEST()
 
@@ -494,14 +578,14 @@ MAKE_TEST(tree_intersection_4, Test intersection with trees of different lengths
     Tree b;
     b.insert(2);
     b.insert(3);
-    Tree t = Tree::intersection(a, b);
+    Tree t = intersection(a, b);
     int size = t.size();
     if(size != 2)
     {
         FAILURE_ARGS(size, 2, "size")
     }
     int expected[] = {2, 3};
-    CONTENTS_TEST(expected)
+    CONTENTS_TEST(t, expected)
     SUCCESS()
 END_TEST()
 
@@ -513,14 +597,14 @@ MAKE_TEST(tree_intersection_5, Test intersection with trees of different lengths
     Tree b;
     b.insert(2);
     b.insert(3);
-    Tree t = Tree::intersection(b, a);
+    Tree t = intersection(b, a);
     int size = t.size();
     if(size != 2)
     {
         FAILURE_ARGS(size, 2, "size")
     }
     int expected[] = {2, 3};
-    CONTENTS_TEST(expected)
+    CONTENTS_TEST(t, expected)
     SUCCESS()
 END_TEST()
 
@@ -531,7 +615,7 @@ MAKE_TEST(tree_intersection_6, Test intersection with two disjoint trees of equa
     Tree b;
     b.insert(4);
     b.insert(3);
-    Tree t = Tree::intersection(a, b);
+    Tree t = intersection(a, b);
     int size = t.size();
     if(size != 0)
     {
@@ -548,7 +632,7 @@ MAKE_TEST(tree_intersection_7, Test intersection with two disjoint trees of uneq
     Tree b;
     b.insert(4);
     b.insert(3);
-    Tree t = Tree::intersection(a, b);
+    Tree t = intersection(a, b);
     int size = t.size();
     if(size != 0)
     {
@@ -565,7 +649,7 @@ MAKE_TEST(tree_intersection_8, Test intersection with two disjoint trees of uneq
     b.insert(4);
     b.insert(3);
     b.insert(9);
-    Tree t = Tree::intersection(a, b);
+    Tree t = intersection(a, b);
     int size = t.size();
     if(size != 0)
     {
@@ -615,6 +699,10 @@ int main(int argc, char** argv)
     test_member_3();
     test_copy_ctor_1();
     test_copy_ctor_2();
+    test_assignment_operator_1();
+    test_assignment_operator_2();
+    test_assignment_operator_3();
+    test_assignment_operator_4();
     test_tree_union_1();
     test_tree_union_2();
     test_tree_union_3();
