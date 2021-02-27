@@ -20,14 +20,14 @@ void merge(int* arr, int* begin1, int* begin2, int* end)
 {
   for(; begin1 != begin2; )
   {
-      if (begin2 == end)
+    if (begin2 == end)
         return;
     if (*begin1 > *begin2)
     {
         swap(begin1, begin2);
         if (begin2 == begin1 + 1) 
             ++begin2;
-        else;
+        else
             ++begin1;
     } 
     else 
