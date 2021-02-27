@@ -1,12 +1,14 @@
 #include "tree.h"
 #include <iostream>
 
+    
     Tree::Tree() 
     : _M_root(nullptr)
     {
 
     }
 
+   
    Tree::Tree(const Tree& other)
     {
         _M_root = copy_nodes(other._M_root);
@@ -28,6 +30,7 @@
         _M_root = nullptr;
     }
     
+    
     void Tree::insert(int i)
     {
         if(!_M_root)
@@ -38,6 +41,7 @@
             _M_root->_M_right = insert_impl(_M_root->_M_right, i);
     }
     
+
     void Tree::erase(int i)
     {
         if(!_M_root)
@@ -45,6 +49,7 @@
         _M_root = erase_impl(_M_root, i);
     }
 
+    
     int Tree::size() const 
     {
         if(!_M_root)
@@ -59,6 +64,7 @@
         return member_impl(_M_root, i);
     }
 
+     
     int* Tree::toarray()
     {
         int curr_size = size();
@@ -130,7 +136,7 @@
         return tree_intersection;
     }
 
-    void Tree::toarray_impl(Tree::tree* n, int* arr, int& index) const
+    void Tree::toarray_impl(Tree::tree* n, int* arr, int& index)
     {
         if(n)
         {
