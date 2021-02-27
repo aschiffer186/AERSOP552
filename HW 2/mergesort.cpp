@@ -76,11 +76,10 @@ int main (int argc, char** argv)
     }
 
     std::cout << std::endl << std::endl;
-
     //Test already sorted array 
     int arr6[] = {1, 2, 3, 4, 5, 6, 7,  8, 9, 10};
     size = 10;
-    int* sorted = mergesort(arr, size);
+    sorted = mergesort(arr6, size);
     for(int i = 0; i < size; ++i)
     {
         std::cout << sorted[i] << " ";
