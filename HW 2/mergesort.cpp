@@ -102,7 +102,7 @@ int main (int argc, char** argv)
 
     //Test sorting array with 2 elements 
     int arr5[] = {6, 1};
-    size = 2;
+    size = sizeof(arr5)/sizeof(arr5[0]);
     sorted = mergesort(arr5, size);
     for(int i = 0; i < size; ++i)
     {

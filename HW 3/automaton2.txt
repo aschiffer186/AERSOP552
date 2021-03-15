@@ -1,0 +1,15 @@
+-- alphabet
+a b
+-- states
+1 2 13
+-- initial
+1
+-- final
+1 13
+-- transitions
+1 -- a --> 2
+1 -- b --> 1
+2 -- a --> 13
+2 -- b --> 2
+13 -- a --> 13
+13 -- b --> 13
