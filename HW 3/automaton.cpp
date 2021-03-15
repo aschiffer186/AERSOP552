@@ -78,8 +78,6 @@ void dfa::read_file(const std::string& file)
                     largest_state = std::stoull(_M_states.substr(last_space + 1));
                     _M_num_states = largest_state;
                     _M_transitions = new std::string[_M_num_states];
-                    //for(size_t i = 0; i < largest_state; ++i)
-                        //_M_transitions[i] = "";
                 }
                 else if (curr_property == "initial")
                 {
