@@ -157,8 +157,9 @@ void dfa::transition(char c)
             _M_curr_state = std::stoull(t.substr(i + 2, (sep_index - (i + 2))));
             return;
         }
-        i = sep_index + 1;
+        i = sep_index;
     }
+    _M_curr_state = std::string::npos;
 }
 
 bool dfa::is_valid(const std::string& text)
@@ -167,6 +168,8 @@ bool dfa::is_valid(const std::string& text)
     {
         char curr = text[i];
         transition(curr);
+        if (_M_curr_state == std::string::npos)
+            return false;
     }
     return is_accepting_state();
 }
@@ -179,16 +182,22 @@ bool automaton(std::string file, std::string text)
 
 int main(int argc, char** argv)
 {
-    std::string file = "file.txt";
+    std::string file;
     if (argc >1 )
         file = argv[1];
+    else
+    {
+        std::cout << "Enter a filename: ";
+        std::cin >> file;
+        std::cin.ignore();
+    }
     std::string text;
     while (true)
     {
         try 
         {
             #ifdef DEBUG
-                text = "aaaa";
+                text = "0";
             #else
             std::cout << "Enter text or \"quit\" to quit: \n";
             getline(std::cin, text);
