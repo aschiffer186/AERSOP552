@@ -46,6 +46,7 @@ class Vector
         {
             if(_M_data)
                 delete[] _M_data;
+            _M_data = nullptr;
             _M_size = 0;
             _M_cap = 0;
         }
