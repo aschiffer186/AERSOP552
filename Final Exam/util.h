@@ -8,7 +8,7 @@ class Vector
 {
     public:
         Vector() : 
-            _M_size{0}, _M_cap{0}, _M_data{}
+            _M_size{0}, _M_cap{0}, _M_data{nullptr}
         {
 
         }
@@ -33,15 +33,6 @@ class Vector
             }
         }
 
-        Vector(Vector&& other) :
-            _M_size(other._M_size), _M_cap(other._M_cap)
-        {
-            _M_data = other._M_data;
-            other._M_data = nullptr;
-            other._M_size = 0;
-            other._M_cap = 0;
-        }
-
         ~Vector()
         {
             if(_M_data)
@@ -63,20 +54,6 @@ class Vector
                 {
                     _M_data[i] = other._M_data[i];
                 }
-            }
-            return *this;
-        }
-
-        Vector& operator=(Vector&& other)
-        {
-            if(&other != this)
-            {
-                _M_size = other._M_size;
-                _M_cap = other._M_cap;
-                _M_data = other._M_data;
-                other._M_data = nullptr;
-                other._M_size = 0;
-                other._M_cap = 0;
             }
             return *this;
         }
@@ -148,7 +125,7 @@ class Vector
                 _Tp* temp = new _Tp[new_cap];
                 for(size_t i = 0; i < _M_size; ++i)
                 {
-                    temp[i] = std::move(_M_data[i]);
+                    temp[i] = _M_data[i];
                 }
                 delete[] _M_data;
                 _M_data = temp;
