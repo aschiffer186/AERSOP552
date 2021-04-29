@@ -1,0 +1,23 @@
+/*
+        //Replace [0-9]
+        std::regex digit_regex("[0-9]");
+        std::string digit_replacement = "(0|1|2|3|4|5|6|7|8|9)";
+        std::string digits_added;
+        std::regex_replace(std::back_inserter(digits_added), regex.begin(), regex.end(), digit_regex, digit_replacement);
+        //Replace [a-z]
+        std::regex lower_regex("[a-z]");
+        std::string lower_replacement = "(a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)";
+        std::string lower_added;
+        std::regex_replace(std::back_inserter(lower_added), digits_added.begin(), digits_added.end(), lower_regex, lower_replacement);
+        //Replace [A-Z]
+        std::regex upper_regex("[A-Z]");
+        std::string upper_replacement = "(A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z)";
+        std::string upper_added;
+        std::regex_replace(std::back_inserter(upper_added), lower_added.begin(), lower_added.end(), upper_regex, upper_replacement);
+        //Replace [A-Za-z]
+        std::regex all_regex("[A-Za-z]");
+        std::string all_replacement = lower_replacement.substr(0, lower_replacement.size() - 1);
+        all_replacement += "|" + upper_replacement.substr(1);
+        std::string all_replaced;
+        std::regex_replace(std::back_inserter(all_replaced),upper_added.begin(), upper_added.end(), all_regex, all_replacement);
+        */

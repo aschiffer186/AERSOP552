@@ -1,0 +1,17 @@
+#A grammar for arithmetic
+terminals: = var ident = + - / * ^ float int ( )
+S -> var ident = expr 
+expr -> A
+A -> A + M
+A -> A - M 
+A -> M 
+M -> M * E 
+M -> M / E
+M -> E 
+M -> E' ^ E 
+E -> E' 
+E' -> num 
+E' -> ( A )
+E' -> ident 
+num -> int 
+num -> float

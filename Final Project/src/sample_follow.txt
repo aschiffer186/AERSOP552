@@ -1,0 +1,17 @@
+S->N
+N->V = E
+N->E
+E->V
+V->x
+V->* E
+
+FIRST(V) = {x, *}
+FIRST(E) = {x, *}
+FIRST(N) = {x, *}
+FIRST(x) = {x}
+FIRST(*) = {*}
+
+FOLLOW(S) = {$}
+FOLLOW(V) = {=} U FOLLOW(E)
+FOLLOW(E) = FOLLOW(N) U FOLLOW{V} = {$} U FOLLOW{V}
+FOLLOW(N) = FOLLOW(S) = {$}

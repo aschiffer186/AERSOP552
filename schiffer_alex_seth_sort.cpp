@@ -1,7 +1,8 @@
 #include <iostream> 
 #include <cmath>
 
-
+//Creates a new test for the iterative method 
+//@param num the test number
 #define MAKE_ITER_TEST(num, ...)\
     std::cout << "Begin Seth Sort Iter Test " << #num << std::endl;\
     int arr_iter##num[] = {__VA_ARGS__};\
@@ -10,6 +11,8 @@
     print(arr_iter##num, size_iter##num);\
     std::cout << std::endl;\
 
+//Creates a new test for the recurisve method
+//@param num the test number
 #define MAKE_REC_TEST(num, ...)\
     std::cout << "Begin Seth Sort Rec Test " << #num << std::endl;\
     int arr_rec##num[] = {__VA_ARGS__};\
@@ -66,6 +69,7 @@ void seth_sort_rec_impl(int a[], int i, int n)
 
 void seth_sort_rec(int a[], int n)
 {
+    if (n <= 0) return;
     seth_sort_rec_impl(a, 0, n);
 }
 

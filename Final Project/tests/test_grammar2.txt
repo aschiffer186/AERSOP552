@@ -1,0 +1,8 @@
+terminals: + * num
+S -> E
+E -> T 
+T -> E + T 
+T -> F 
+T -> M * F 
+F -> num 
+F -> ( E )
