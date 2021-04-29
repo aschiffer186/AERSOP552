@@ -149,7 +149,7 @@ bool maze::solve_a_star(size_t i, size_t j, Vector<point>& v)
 {
     if(i < 0 || i >= num_rows())
         return false;
-    if (j < 0 || j >= num_rows())
+    if (j < 0 || j >= num_cols())
         return false;
     if(!is_path(i, j))
         return false;
