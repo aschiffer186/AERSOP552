@@ -225,7 +225,7 @@ bool maze::solve_DFS(size_t i, size_t j, Vector<point>& v)
         solve_DFS(i, j - 1, v)) //There is a path from this point to the exit
     {
         v.push_back({i, j});
-        _M_map[i][i] = 2;
+        _M_map[i][j] = 2;
         return true;
     }
     //No path from this point to the exit
