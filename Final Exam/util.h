@@ -148,7 +148,7 @@ class Vector
                 _Tp* temp = new _Tp[new_cap];
                 for(size_t i = 0; i < _M_size; ++i)
                 {
-                    temp[i] = _M_data[i];
+                    temp[i] = std::move(_M_data[i]);
                 }
                 delete[] _M_data;
                 _M_data = temp;
