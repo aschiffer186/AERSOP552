@@ -19,7 +19,7 @@ std::ostream& operator<<(std::ostream& os, const point& p)
 
 void swap(double* i, double* j)
 {
-    int temp = *i;
+    double temp = *i;
     *i = *j;
     *j = temp;
 }
@@ -139,9 +139,8 @@ Vector<point> maze::solve_a_star()
     if(_M_map[0][0] != 0)
         reset();
     Vector<point> path;
-    solve_a_star(0, 0, path);
-    point exit = {num_rows() - 1, num_cols() - 1};
-    if(path.is_empty() || path.front() != exit);
+    bool found = solve_a_star(0, 0, path);
+    if(!found)
         return Vector<point>();
     return path;
 }
@@ -162,6 +161,7 @@ bool maze::solve_a_star(size_t i, size_t j, Vector<point>& v)
         _M_map[i][j] = 2;
         return true;
     }
+    _M_map[i][j] = 1; //Indicate we've seen this cell
     double h1 = h(i + 1, j);
     double h2 = h(i, j + 1);
     double h3 = h(i - 1, j);
@@ -174,30 +174,45 @@ bool maze::solve_a_star(size_t i, size_t j, Vector<point>& v)
     bool path_exists = false;
     while(back >= 0)
     {
-        if(arr[back] == h1)
+        auto val = arr[back];
+        if(std::abs(arr[back] - h1) < 1e-6)
         {
-            if(solve_a_star(i + j, j, v))
+            if(solve_a_star(i + 1, j, v))
+            {
                 path_exists = true;
+                break;
+            }
         }
-        else if (arr[back] == h2)
+        else if (std::abs(arr[back] - h2) < 1e-6)
         {
-            if(solve_a_star(i, j, v))
+            if(solve_a_star(i, j + 1, v))
+            {
                 path_exists = true;
+                break;
+            }
         }
-        else if (arr[back] == h3)
+        else if (std::abs(arr[back] - h3) < 1e-6)
         {
-            if(solve_a_star(i, j, v))
+            if(solve_a_star(i -1, j, v))
+            {
                 path_exists = true;
+                break;
+            }
         }
         else
         {
-            if(solve_a_star(i, j, v))
+            if(solve_a_star(i, j - 1, v))
+            {
                 path_exists = true;
+                break;
+            }
         }
+        --back;
     }
     if(path_exists)
     {
         v.push_back({i, j});
+        _M_map[i][j] = 2;
         return true;
     }
     return false;
@@ -219,6 +234,8 @@ bool maze::solve_DFS(size_t i, size_t j, Vector<point>& v)
         _M_map[i][j] = 2;
         return true;
     }
+    //Indicate we've seen this cell
+    _M_map[i][j] = 1;
     if(solve_DFS(i + 1, j, v) ||
         solve_DFS(i, j + 1, v) ||
         solve_DFS(i - 1, j, v) ||
@@ -229,7 +246,6 @@ bool maze::solve_DFS(size_t i, size_t j, Vector<point>& v)
         return true;
     }
     //No path from this point to the exit
-    _M_map[i][j] = 1; 
     return false;
 } 
 
