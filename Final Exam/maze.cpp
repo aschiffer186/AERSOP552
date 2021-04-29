@@ -240,7 +240,7 @@ bool maze::is_path(size_t i, size_t j) const
 
 bool maze::has_seen(size_t i, size_t j) const 
 {
-    return _M_map[i][i] == 1 || _M_map[i][i] == 2;
+    return _M_map[i][j] == 1 || _M_map[i][j] == 2;
 }
 
 bool maze::is_exit(size_t i, size_t j) const 
